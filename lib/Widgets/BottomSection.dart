@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:reactiontester/Provider/lightProvider.dart';
 
 
+// ignore: camel_case_types
 class bottomSection extends StatelessWidget {
   const bottomSection({
     Key? key,

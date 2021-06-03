@@ -8,7 +8,6 @@ class Lights extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    var lightProvider = Provider.of<LightProvider>(context, listen: false);
 
     return Container(
       margin: EdgeInsets.all(15),

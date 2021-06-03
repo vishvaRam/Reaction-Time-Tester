@@ -1,8 +1,10 @@
 import 'dart:async';
-
+import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:flutter/material.dart';
 
 class LightProvider extends ChangeNotifier {
+  StopWatchTimer? stopWatchTimer;
+  LightProvider(this.stopWatchTimer);
   List<bool> _light = [false, false, false, false, false];
   List<bool> get light => _light;
   Timer? _timer;
@@ -41,6 +43,7 @@ class LightProvider extends ChangeNotifier {
           notifyListeners();
           print(_light);
         }
+        stopWatchTimer!.onExecute.add(StopWatchExecute.start);
         _timer?.cancel();
       }
     });
@@ -48,6 +51,7 @@ class LightProvider extends ChangeNotifier {
 
   void reset() async {
     _timer?.cancel();
+    stopWatchTimer?.onExecute.add(StopWatchExecute.reset);
     for (int i =0; i<5 ; i++) {
        _light[i] = false;
       notifyListeners();
