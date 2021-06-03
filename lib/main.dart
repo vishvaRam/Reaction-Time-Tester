@@ -28,6 +28,19 @@ class _MainAppState extends State<MainApp> {
         setState(() {
           timing = value;
         });
+
+        if(timing < 100){
+          print("0"+timing.toString());
+        }
+
+        if(timing < 10){
+          print("00"+timing.toString());
+        }
+
+        if(timing > 1000){
+          var res = timing / 1000;
+          print("Sec : $res");
+        }
       },
       onChangeRawSecond: (value) => print('onChangeRawSecond $value'),
       onChangeRawMinute: (value) => print('onChangeRawMinute $value'),
