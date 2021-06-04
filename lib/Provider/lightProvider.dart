@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:flutter/material.dart';
 
@@ -38,13 +39,15 @@ class LightProvider extends ChangeNotifier {
         print(_light[4].toString()+ " : 4");
       }
       if(timer.tick == 6){
-        for (int i = 0; i < 5; i++) {
-          _light[i] = false;
-          notifyListeners();
-          print(_light);
-        }
-        stopWatchTimer!.onExecute.add(StopWatchExecute.start);
-        _timer?.cancel();
+        Future.delayed(Duration(milliseconds: Random().nextInt(500)),(){
+          for (int i = 0; i < 5; i++) {
+            _light[i] = false;
+            notifyListeners();
+            print(_light);
+          }
+          stopWatchTimer!.onExecute.add(StopWatchExecute.start);
+          _timer?.cancel();
+        });
       }
     });
   }

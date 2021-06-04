@@ -18,30 +18,72 @@ class MainApp extends StatefulWidget {
 class _MainAppState extends State<MainApp> {
   StopWatchTimer? stopWatchTimer;
   int timing = 0000;
+  String sec = "00";
+  String milliSec = "000";
+
+  void onChangeFun(value){
+    print('onChange $value');
+    setState(() {
+      timing = value;
+    });
+    if(timing==0){
+      print("00"+timing.toString());
+      setState(() {
+        sec= "00";
+        milliSec = "00"+timing.toString();
+      });
+    }
+
+    if(timing < 10){
+      print("00"+timing.toString());
+      setState(() {
+        sec= "00";
+        milliSec = "00"+timing.toString();
+      });
+
+    }
+
+    if(timing < 100){
+      print("0"+timing.toString());
+      setState(() {
+        sec= "00";
+        milliSec = "0"+timing.toString();
+      });
+    }
+    if(timing < 1000){
+      print(timing.toString());
+      setState(() {
+        sec= "00";
+        milliSec = timing.toString();
+      });
+    }
+
+    if(timing > 1000){
+      var res = timing / 1000;
+      String unFormatted = res.toString();
+      setState(() {
+        sec = unFormatted.split('.').first.padLeft(2,"0");
+        milliSec = unFormatted.split('.').last;
+      });
+      print("Sec : $res");
+    }
+
+    if(int.parse(sec) > 9){
+      setState(() {
+        sec ="00";
+        milliSec ="000";
+      });
+      stopWatchTimer!.onExecute.add(StopWatchExecute.stop);
+      stopWatchTimer!.onExecute.add(StopWatchExecute.reset);
+    }
+
+  }
 
   @override
   void initState() {
     stopWatchTimer = StopWatchTimer(
       mode: StopWatchMode.countUp,
-      onChange: (value){
-        print('onChange $value');
-        setState(() {
-          timing = value;
-        });
-
-        if(timing < 100){
-          print("0"+timing.toString());
-        }
-
-        if(timing < 10){
-          print("00"+timing.toString());
-        }
-
-        if(timing > 1000){
-          var res = timing / 1000;
-          print("Sec : $res");
-        }
-      },
+      onChange: onChangeFun,
       onChangeRawSecond: (value) => print('onChangeRawSecond $value'),
       onChangeRawMinute: (value) => print('onChangeRawMinute $value'),
     );
@@ -65,7 +107,7 @@ class _MainAppState extends State<MainApp> {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: "Reaction Time Tester",
-        home: HomePage(stopWatchTimer: stopWatchTimer,timing: timing,),
+        home: HomePage(stopWatchTimer: stopWatchTimer,timing: timing,sec: sec,milliSec: milliSec,),
       ),
     );
   }

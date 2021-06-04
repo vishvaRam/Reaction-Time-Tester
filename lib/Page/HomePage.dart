@@ -9,7 +9,9 @@ class HomePage extends StatelessWidget {
 
   final StopWatchTimer? stopWatchTimer;
   final int? timing;
-  const HomePage({Key? key, this.stopWatchTimer, this.timing}) : super(key: key);
+  final String? sec;
+  final String? milliSec;
+  const HomePage({Key? key, this.stopWatchTimer, this.timing, this.sec, this.milliSec}) : super(key: key);
 
   void printList(List<bool> formLightProvider) {
     for (int i = 0; i < 5; i++) {
@@ -36,7 +38,7 @@ class HomePage extends StatelessWidget {
                     child: Center(
                   child: FittedBox(
                     child: Text(
-                      timing.toString(),
+                      sec == null ? "00": sec!+":"+ milliSec!,
                       style: TextStyle(fontSize: 44),
                     ),
                   ),
@@ -59,7 +61,7 @@ class HomePage extends StatelessWidget {
                   ),
                 )),
             Expanded(
-                flex: 2, child: bottomSection(lightProvider: lightProvider)),
+                flex: 2, child: bottomSection(lightProvider: lightProvider,sec: sec,milliSec: milliSec,)),
           ],
         ),
       )),
