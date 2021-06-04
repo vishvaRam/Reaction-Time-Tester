@@ -27,12 +27,12 @@ class _MainAppState extends State<MainApp> {
       timing = value;
     });
     if(timing==0){
-      print("00"+timing.toString());
+      print("it is zero");
       setState(() {
         sec= "00";
-        milliSec = "00"+timing.toString();
+        milliSec = "000";
       });
-    }
+    }else
 
     if(timing < 10){
       print("00"+timing.toString());
@@ -41,7 +41,7 @@ class _MainAppState extends State<MainApp> {
         milliSec = "00"+timing.toString();
       });
 
-    }
+    }else
 
     if(timing < 100){
       print("0"+timing.toString());
@@ -49,7 +49,7 @@ class _MainAppState extends State<MainApp> {
         sec= "00";
         milliSec = "0"+timing.toString();
       });
-    }
+    }else
     if(timing < 1000){
       print(timing.toString());
       setState(() {
